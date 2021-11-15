@@ -11,3 +11,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## R Markdown
 
+## look into data folder
+
+```{r}
+
+list.files("../data")
+
+```
+
