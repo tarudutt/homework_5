@@ -4,7 +4,7 @@
 
 ### We need to pick one city in the data and create a map showing the locations of the homicides in that city, using the sf framework. We need to use tigris package to download boundaries for some sub-city geography (e.g., tracts, block groups, county subdivisions) to show as a layer underneath the points showing homicides. We will use different facets for solved versus unsolved homicides and different colors to show the three race groups with the highest number of homicides for that city. 
 
-Loading packages
+## Loading packages
 
 ```{r, message=FALSE, warning=FALSE, error=FALSE}
 library(rmarkdown)
@@ -13,3 +13,12 @@ library(forcats)
 library(lubridate)
 library(tigris)
 library(sf)
+```
+
+## Loading data
+
+```{r, message=FALSE, warning=FALSE, error=FALSE}
+homicides_data <- read_csv("../data/homicide-data.csv")
+```
+
+
