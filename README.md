@@ -22,7 +22,6 @@ homicides_data <- read_csv("../data/homicide-data.csv")
 ```
 
 ## Cleaning data
-## Cleaning data
 
 For cleaning data:
 1. I am uniting city and state column as "city_state"
@@ -43,3 +42,39 @@ homicide_data_atlanta <- homicide_data %>%
  homicide_data_atlanta
 ```
 
+## Creating map
+
+```{r, message=FALSE, warning=FALSE, error=FALSE}
+
+# Adding race parameter
+
+homicide_data_atlanta$victim_race <- as.factor(homicide_data_atlanta$victim_race) 
+
+
+# Creating sf 
+
+
+sf_homicide_data_atlanta <- st_as_sf(x = homicide_data_atlanta, 
+                                     coords = c("lon", "lat")) %>% 
+  st_set_crs(4269) 
+
+# Plot graph
+
+atlanta <- tracts("GA", county = "fulton", cb = TRUE)
+
+ggplot() +
+  geom_sf(data = atlanta) +
+  geom_sf(data = sf_homicide_data_atlanta, alpha = 0.5, 
+          aes(color = fct_lump(victim_race, n = 3))) +
+  facet_wrap( ~ disposition) +
+  scale_color_viridis_d() +
+  ggtitle("Atlanta homicide incidents", 
+          subtitle = "Separated by solved or unsolved homicides") +
+  scale_color_discrete(name = 'Divided by Race') +
+  theme(axis.text.x = element_blank(), 
+        axis.text.y = element_blank(),
+        plot.title = element_text(color="black", size=20, face="bold"),
+        strip.text = element_text(size=14, face = "bold"))
+  
+  
+```
